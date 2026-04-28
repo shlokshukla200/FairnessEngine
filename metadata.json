@@ -1,0 +1,5 @@
+{
+  "name": "FairnessEngine: AI Bias Diagnostic Suite",
+  "description": "A professional-grade diagnostic dashboard for detecting, auditing, and mitigating algorithmic bias in machine learning models and datasets.",
+  "requestFramePermissions": []
+}
