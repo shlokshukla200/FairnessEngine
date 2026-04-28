@@ -447,9 +447,6 @@ export default function App() {
             className="text-center space-y-12 max-w-4xl px-6 pt-32 pb-20 flex flex-col items-center"
           >
             <div className="space-y-6">
-              <Badge variant="outline" className="px-4 py-1.5 border-indigo-500/30 bg-indigo-500/10 text-indigo-400 rounded-full text-[10px] font-mono tracking-[0.2em] uppercase">
-                Google AI Studio Hackathon Edition
-              </Badge>
               <h1 className="text-7xl md:text-8xl font-black tracking-tighter leading-[0.9]">
                 Fairness<span className="text-indigo-500">Engine</span>
               </h1>
