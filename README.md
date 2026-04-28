@@ -54,6 +54,17 @@ FairnessEngine is a professional-grade diagnostic dashboard designed to detect, 
    npm run dev
    ```
 
+## 🚀 Deployment
+
+### Deploying to Vercel
+
+1. **Push your code to GitHub.**
+2. **Import the project into Vercel.**
+3. **Configure Environment Variables:**
+   - In the Vercel dashboard, go to **Settings > Environment Variables**.
+   - Add `GEMINI_API_KEY` with your key from the Google AI Studio/Cloud Console.
+4. **Deploy.**
+
 ## 📖 Usage
 
 1. **Upload Data**: Start by uploading a CSV dataset or use the provided sample data.

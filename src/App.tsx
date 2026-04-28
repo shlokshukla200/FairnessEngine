@@ -123,6 +123,7 @@ export default function App() {
   const [isAutoDetecting, setIsAutoDetecting] = useState(false);
   const [autoDetectReasoning, setAutoDetectReasoning] = useState<string>('');
   const [autoDetectError, setAutoDetectError] = useState<string>('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // --- Counterfactual Audit State ---
   const [externalApiKey, setExternalApiKey] = useState('');
@@ -447,18 +448,19 @@ export default function App() {
             className="text-center space-y-12 max-w-4xl px-6 pt-32 pb-20 flex flex-col items-center"
           >
             <div className="space-y-6">
-              <h1 className="text-7xl md:text-8xl font-black tracking-tighter leading-[0.9]">
-                Fairness<span className="text-indigo-500">Engine</span>
+              <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[0.9] text-center">
+                <span className="block sm:inline">Fairness</span>
+                <span className="text-indigo-500 block sm:inline">Engine</span>
               </h1>
-              <p className="text-xl text-gray-400 font-medium max-w-2xl mx-auto leading-relaxed text-center">
+              <p className="text-lg md:text-xl text-gray-400 font-medium max-w-2xl mx-auto leading-relaxed text-center px-4">
                 The professional diagnostic suite for detecting and mitigating algorithmic bias in machine learning.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-6">
               <Button 
                 size="lg" 
-                className="h-14 px-10 rounded-2xl bg-indigo-600 text-white text-lg font-bold shadow-2xl shadow-indigo-500/20 group"
+                className="w-full sm:w-auto h-14 px-10 rounded-2xl bg-indigo-600 text-white text-lg font-bold shadow-2xl shadow-indigo-500/20 group"
                 onClick={() => setView('app')}
               >
                 Start bias check
@@ -466,17 +468,17 @@ export default function App() {
               </Button>
             </div>
 
-            <div className="grid grid-cols-3 gap-12 pt-12 border-t border-white/10 w-full max-w-2xl">
-              <div className="space-y-1">
-                <p className="text-2xl font-bold text-white">AIF360</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 pt-12 border-t border-white/10 w-full max-w-2xl px-6">
+              <div className="space-y-1 text-center sm:text-left">
+                <p className="text-xl sm:text-2xl font-bold text-white">AIF360</p>
                 <p className="text-[10px] text-gray-500 uppercase tracking-widest">Core Engine</p>
               </div>
-              <div className="space-y-1">
-                <p className="text-2xl font-bold text-white">Gemini 3</p>
+              <div className="space-y-1 text-center sm:text-left">
+                <p className="text-xl sm:text-2xl font-bold text-white">Gemini 3</p>
                 <p className="text-[10px] text-gray-500 uppercase tracking-widest">Audit Intelligence</p>
               </div>
-              <div className="space-y-1">
-                <p className="text-2xl font-bold text-white">Prometheus</p>
+              <div className="space-y-1 text-center sm:text-left">
+                <p className="text-xl sm:text-2xl font-bold text-white">Prometheus</p>
                 <p className="text-[10px] text-gray-500 uppercase tracking-widest">Evaluation Rules</p>
               </div>
             </div>
@@ -567,47 +569,59 @@ export default function App() {
     <TooltipProvider>
       <div className="dark min-h-screen bg-[#0A0A0A] text-white flex flex-col font-sans selection:bg-indigo-500/30">
         {/* Top Navigation */}
-        <header className="h-16 bg-black/50 border-b border-white/10 px-6 flex items-center justify-between sticky top-0 z-50 backdrop-blur-md">
+        <header className="h-16 bg-black/50 border-b border-white/10 px-4 md:px-6 flex items-center justify-between sticky top-0 z-50 backdrop-blur-md">
           <button 
-            className="flex items-center gap-4 cursor-pointer group"
+            className="flex items-center gap-2 md:gap-4 cursor-pointer group"
             onClick={() => setView('landing')}
           >
             <div className="bg-indigo-600 p-2 rounded-xl shadow-lg shadow-indigo-500/20">
               <ShieldCheck className="text-white w-5 h-5" />
             </div>
-            <div className="text-left">
-              <h1 className="text-sm font-black tracking-tight uppercase text-white">FairnessEngine</h1>
+            <div className="text-left hidden xs:block">
+              <h1 className="text-xs font-black tracking-tight uppercase text-white">FairnessEngine</h1>
               <div className="flex items-center gap-2">
                 <div className={`w-1.5 h-1.5 rounded-full ${apiStatus === 'ok' ? 'bg-green-500' : 'bg-red-500'} animate-pulse`} />
-                <span className="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Diagnostic Active</span>
+                <span className="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Active</span>
               </div>
             </div>
           </button>
 
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="hidden md:flex">
-            <TabsList className="bg-white/5 border border-white/10">
-              <TabsTrigger value="data-bias" className="data-[state=active]:bg-white/10 data-[state=active]:text-white text-gray-300 hover:text-gray-300 text-xs font-medium">
-                <Database className="w-3.5 h-3.5 mr-2" />
-                Data Audit
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex">
+            <TabsList className="bg-white/5 border border-white/10 h-10 p-1">
+              <TabsTrigger value="data-bias" className="data-[state=active]:bg-white/10 data-[state=active]:text-white text-gray-300 hover:text-gray-300 text-[10px] md:text-xs font-medium px-2 md:px-4">
+                <Database className="w-3 h-3 md:w-3.5 md:h-3.5 mr-1.5 md:mr-2" />
+                <span className="hidden xs:inline">Data Audit</span>
+                <span className="xs:hidden">Data</span>
               </TabsTrigger>
-              <TabsTrigger value="model-bias" className="data-[state=active]:bg-white/10 data-[state=active]:text-white text-gray-300 hover:text-gray-300 text-xs font-medium">
-                <Cpu className="w-3.5 h-3.5 mr-2" />
-                Model Audit
+              <TabsTrigger value="model-bias" className="data-[state=active]:bg-white/10 data-[state=active]:text-white text-gray-300 hover:text-gray-300 text-[10px] md:text-xs font-medium px-2 md:px-4">
+                <Cpu className="w-3 h-3 md:w-3.5 md:h-3.5 mr-1.5 md:mr-2" />
+                <span className="hidden xs:inline">Model Audit</span>
+                <span className="xs:hidden">Model</span>
               </TabsTrigger>
             </TabsList>
           </Tabs>
 
           <div className="flex items-center gap-3">
-            <Badge variant="secondary" className="bg-white/5 text-gray-400 border-white/10 text-[10px] font-mono">
-              HACKATHON_PRO_V1
-            </Badge>
+             <Button 
+               variant="ghost" 
+               size="sm" 
+               className="lg:hidden p-2 text-gray-400"
+               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+             >
+               <Settings2 className="w-5 h-5" />
+             </Button>
           </div>
         </header>
 
-        <div className="flex-1 flex overflow-hidden">
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
           {/* Sidebar - Hidden on Model Audit */}
           {activeTab !== 'model-bias' && (
-            <aside className="w-80 bg-[#0D0D0D] border-r border-white/10 flex flex-col">
+            <aside className={`
+              ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+              fixed lg:relative z-40 lg:z-0
+              w-80 h-[calc(100vh-64px)] bg-[#0D0D0D] border-r border-white/10 flex flex-col
+              transition-transform duration-300 ease-in-out
+            `}>
               <ScrollArea className="flex-1 p-6">
                 <div className="space-y-8">
                   {/* Data Input Section */}
@@ -733,28 +747,28 @@ export default function App() {
               {activeTab === 'data-bias' && (
                 <div className="space-y-8">
                   {/* Header Section */}
-                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
                     <div className="space-y-1">
-                      <h2 className="text-3xl font-black tracking-tight text-white">Dataset Diagnostic</h2>
-                      <p className="text-sm text-gray-400">Quantitative analysis of disparate impact and statistical parity.</p>
+                      <h2 className="text-2xl md:text-3xl font-black tracking-tight text-white text-center sm:text-left">Dataset Diagnostic</h2>
+                      <p className="text-xs md:text-sm text-gray-400 text-center sm:text-left">Quantitative analysis of disparate impact and statistical parity.</p>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3">
                       <Button 
                         variant="outline" 
-                        className="h-9 text-xs font-bold rounded-xl border-white/20 bg-white/5 text-white"
+                        className="h-9 text-[10px] md:text-xs font-bold rounded-xl border-white/20 bg-white/5 text-white flex-1 sm:flex-none"
                         onClick={handleExportReport}
                         disabled={!auditResult}
                       >
                         <Download className="w-3.5 h-3.5 mr-2" />
-                        Export Report
+                        Export
                       </Button>
                       <Button 
-                        className={`h-9 text-xs font-bold rounded-xl shadow-lg ${isMitigated ? 'bg-green-600 text-white shadow-green-900/20' : 'bg-indigo-600 text-white shadow-indigo-900/20'}`}
+                        className={`h-9 text-[10px] md:text-xs font-bold rounded-xl shadow-lg flex-1 sm:flex-none ${isMitigated ? 'bg-green-600 text-white shadow-green-900/20' : 'bg-indigo-600 text-white shadow-indigo-900/20'}`}
                         onClick={() => setIsMitigated(!isMitigated)}
                         disabled={!auditResult}
                       >
                         {isMitigated ? <CheckCircle2 className="w-3.5 h-3.5 mr-2 text-white" /> : <Zap className="w-3.5 h-3.5 mr-2 text-white" />}
-                        {isMitigated ? 'Mitigation Active' : 'Apply Reweighing'}
+                        {isMitigated ? 'Mitigated' : 'Mitigate Bias'}
                       </Button>
                     </div>
                   </div>
@@ -981,17 +995,17 @@ export default function App() {
 
               {activeTab === 'model-bias' && (
                 <div className="space-y-8">
-                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
                     <div className="space-y-1 text-left">
-                      <h2 className="text-3xl font-black tracking-tight text-white">Counterfactual Audit</h2>
-                      <p className="text-sm text-gray-400">Testing model behavior using synthetic "Twin Profiles".</p>
+                      <h2 className="text-2xl md:text-3xl font-black tracking-tight text-white text-center sm:text-left">Counterfactual Audit</h2>
+                      <p className="text-xs md:text-sm text-gray-400 text-center sm:text-left">Testing model behavior using synthetic "Twin Profiles".</p>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="flex bg-white/5 p-1 rounded-xl border border-white/10">
+                    <div className="flex justify-center sm:justify-end">
+                      <div className="flex bg-white/5 p-1 rounded-xl border border-white/10 w-full sm:w-auto overflow-x-auto">
                         <Button 
                           variant="ghost" 
                           size="sm" 
-                          className={`h-8 text-[10px] font-bold rounded-lg ${apiProvider === 'google' ? 'bg-white/10 shadow-sm text-white' : 'text-gray-400'}`}
+                          className={`flex-1 sm:flex-none h-8 text-[10px] font-bold rounded-lg px-4 ${apiProvider === 'google' ? 'bg-white/10 shadow-sm text-white' : 'text-gray-400'}`}
                           onClick={() => setApiProvider('google')}
                         >
                           Gemini
@@ -999,7 +1013,7 @@ export default function App() {
                         <Button 
                           variant="ghost" 
                           size="sm" 
-                          className={`h-8 text-[10px] font-bold rounded-lg ${apiProvider === 'anthropic' ? 'bg-white/10 shadow-sm text-white' : 'text-gray-400'}`}
+                          className={`flex-1 sm:flex-none h-8 text-[10px] font-bold rounded-lg px-4 ${apiProvider === 'anthropic' ? 'bg-white/10 shadow-sm text-white' : 'text-gray-400'}`}
                           onClick={() => setApiProvider('anthropic')}
                         >
                           Claude
@@ -1007,7 +1021,7 @@ export default function App() {
                         <Button 
                           variant="ghost" 
                           size="sm" 
-                          className={`h-8 text-[10px] font-bold rounded-lg ${apiProvider === 'openai' ? 'bg-white/10 shadow-sm text-white' : 'text-gray-400'}`}
+                          className={`flex-1 sm:flex-none h-8 text-[10px] font-bold rounded-lg px-4 ${apiProvider === 'openai' ? 'bg-white/10 shadow-sm text-white' : 'text-gray-400'}`}
                           onClick={() => setApiProvider('openai')}
                         >
                           GPT-4
@@ -1113,7 +1127,7 @@ export default function App() {
                         ) : (
                           <ScrollArea className="flex-1">
                             <div className="p-8 space-y-8 text-left">
-                              <div className="grid grid-cols-2 gap-6 text-left">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
                                 <div className="p-6 rounded-2xl bg-blue-500/10 border border-blue-500/20 space-y-4">
                                   <div className="flex items-center justify-between">
                                     <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest text-left">Male Candidates</span>
